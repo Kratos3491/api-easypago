@@ -41,13 +41,17 @@
         <strong>¡Listo para cobrar!</strong>
         <img id="imagen-qr" src="" alt="QR">
         <p id="texto-token" style="word-break: break-all; font-family: monospace; font-size: 11px; background: white; padding: 5px; border-radius: 4px; border: 1px solid #ccc;"></p>
+        
+        <button id="btnCopiar" onclick="copiarAlPortapapeles()" style="display: none; margin-top: 10px; padding: 8px 15px; cursor: pointer; background-color: #28a745; color: white; border: none; border-radius: 5px; width: 100%;">
+          📋 Copiar Token
+        </button>
     </div>
 </div>
 
 <script>
     async function generar() {
         const datos = {
-            nombre: document.getElementById('nombre').value || "Sin Nombre", // <-- AGREGAMOS EL NOMBRE AQUÍ
+            nombre: document.getElementById('nombre').value || "Sin Nombre",
             rut: document.getElementById('rut').value || "11.111.111-1",
             banco: document.getElementById('banco').value,
             tipoCuenta: document.getElementById('tipoCuenta').value,
@@ -72,12 +76,38 @@
                 const imgQr = document.getElementById('imagen-qr');
                 imgQr.src = resultado.qr_imagen;
                 imgQr.style.display = 'block';
+
+                // HACEMOS VISIBLE EL BOTÓN DE COPIAR CUANDO HAY ÉXITO
+                document.getElementById('btnCopiar').style.display = 'block';
             } else {
                 alert("Error desde Python: " + JSON.stringify(resultado));
             }
         } catch (error) {
             alert("Error de conexión con Python.");
         }
+    }
+
+    // FUNCIÓN PARA COPIAR AL PORTAPAPELES
+    function copiarAlPortapapeles() {
+        const textoToken = document.getElementById('texto-token').innerText; 
+        
+        navigator.clipboard.writeText(textoToken).then(() => {
+            const btn = document.getElementById('btnCopiar');
+            const textoOriginal = '📋 Copiar Token';
+            
+            // Efecto visual de éxito
+            btn.innerHTML = '✅ ¡Copiado!';
+            btn.style.backgroundColor = '#218838'; // Verde más oscuro
+            
+            // Vuelve a la normalidad después de 2 segundos
+            setTimeout(() => {
+                btn.innerHTML = textoOriginal;
+                btn.style.backgroundColor = '#28a745'; // Vuelve al verde original
+            }, 2000);
+        }).catch(err => {
+            console.error('Error al copiar: ', err);
+            alert('No se pudo copiar el texto automáticamente.');
+        });
     }
 </script>
 
