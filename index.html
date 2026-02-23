@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>EasyPago - Generar Cobro</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .tarjeta { background-color: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 350px; text-align: center; }
+        input, select { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background-color: #1a73e8; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        #caja-resultado { margin-top: 20px; display: none; background: #e8f0fe; padding: 15px; border-radius: 8px; border: 1px dashed #1a73e8; }
+        #imagen-qr { max-width: 150px; margin: 10px auto; border-radius: 8px; display: none; }
+    </style>
+</head>
+<body>
+
+<div class="tarjeta">
+    <h2 style="color: #1a73e8; margin-top: 0;">Crear Cobro QR</h2>
+    
+    <input type="text" id="nombre" placeholder="Nombre completo (Ej: Juan Pérez)">
+    
+    <input type="text" id="rut" placeholder="RUT (Ej: 19.876.543-2)">
+    <select id="banco">
+        <option value="BancoEstado">BancoEstado</option>
+        <option value="Banco de Chile">Banco de Chile</option>
+        <option value="Santander">Santander</option>
+        <option value="BCI">BCI</option>
+    </select>
+    <select id="tipoCuenta">
+        <option value="Cuenta RUT">Cuenta RUT</option>
+        <option value="Cuenta Corriente">Cuenta Corriente</option>
+        <option value="Cuenta Vista">Cuenta Vista</option>
+    </select>
+    <input type="number" id="numeroCuenta" placeholder="N° de Cuenta">
+    <input type="email" id="correo" placeholder="Correo electrónico">
+    <input type="text" id="asunto" placeholder="Asunto (Ej: Pago cena)">
+
+    <button onclick="generar()">Generar QR y Token</button>
+
+    <div id="caja-resultado">
+        <strong>¡Listo para cobrar!</strong>
+        <img id="imagen-qr" src="" alt="QR">
+        <p id="texto-token" style="word-break: break-all; font-family: monospace; font-size: 11px; background: white; padding: 5px; border-radius: 4px; border: 1px solid #ccc;"></p>
+    </div>
+</div>
+
+<script>
+    async function generar() {
+        const datos = {
+            nombre: document.getElementById('nombre').value || "Sin Nombre", // <-- AGREGAMOS EL NOMBRE AQUÍ
+            rut: document.getElementById('rut').value || "11.111.111-1",
+            banco: document.getElementById('banco').value,
+            tipoCuenta: document.getElementById('tipoCuenta').value,
+            numeroCuenta: document.getElementById('numeroCuenta').value || "0",
+            correo: document.getElementById('correo').value || "test@test.cl",
+            asunto: document.getElementById('asunto').value || "Sin asunto"
+        };
+
+        try {
+            const respuesta = await fetch('https://api-easypago.onrender.com/api/v1/generar-token', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datos)
+            });
+
+            const resultado = await respuesta.json();
+
+            if (respuesta.ok) {
+                document.getElementById('caja-resultado').style.display = 'block';
+                document.getElementById('texto-token').innerText = resultado.token;
+                
+                const imgQr = document.getElementById('imagen-qr');
+                imgQr.src = resultado.qr_imagen;
+                imgQr.style.display = 'block';
+            } else {
+                alert("Error desde Python: " + JSON.stringify(resultado));
+            }
+        } catch (error) {
+            alert("Error de conexión con Python.");
+        }
+    }
+</script>
+
+</body>
+</html>

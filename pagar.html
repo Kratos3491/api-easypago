@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>EasyPago - Nueva Transferencia</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box;}
+        .tarjeta { background-color: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        h2 { text-align: center; color: #1a73e8; margin-top: 0; }
+        .instruccion { text-align: center; font-size: 14px; color: #666; margin-bottom: 20px;}
+        .grupo-input { margin-bottom: 12px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; color: #555; font-size: 13px;}
+        .input-token { width: 100%; padding: 12px; border: 2px dashed #1a73e8; border-radius: 8px; box-sizing: border-box; font-size: 14px; text-align: center; background-color: #f8faff; }
+        .input-bloqueado { width: 100%; padding: 10px; border: 1px solid #e0e0e0; border-radius: 6px; box-sizing: border-box; font-size: 14px; background-color: #f9f9f9; color: #333; cursor: not-allowed; font-weight: 500; }
+        .btn-magico { width: 100%; padding: 12px; background-color: #34a853; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; margin-bottom: 20px;}
+        .btn-transferir { width: 100%; padding: 14px; background-color: #1a73e8; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 15px; display: none; }
+        #formulario-oculto { opacity: 0.4; transition: opacity 0.5s; }
+        hr { border: 0; border-top: 1px solid #eee; margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+<div class="tarjeta">
+    <h2>Hacer Transferencia</h2>
+    <p class="instruccion">Pega el código que te enviaron para autocompletar.</p>
+    
+    <div class="grupo-input">
+        <input type="text" id="token-input" class="input-token" placeholder="Pegar código aquí...">
+    </div>
+    
+    <button class="btn-magico" onclick="procesarToken()">✨ Autocompletar Mágicamente</button>
+
+    <hr>
+
+    <div id="formulario-oculto">
+        <div class="grupo-input">
+            <label>Nombre Destinatario</label>
+            <input type="text" id="res-nombre" class="input-bloqueado" readonly placeholder="...">
+        </div>
+
+        <div class="grupo-input">
+            <label>RUT Destinatario</label>
+            <input type="text" id="res-rut" class="input-bloqueado" readonly placeholder="...">
+        </div>
+        <div class="grupo-input">
+            <label>Banco</label>
+            <input type="text" id="res-banco" class="input-bloqueado" readonly placeholder="...">
+        </div>
+        <div class="grupo-input">
+            <label>Tipo de Cuenta</label>
+            <input type="text" id="res-tipo" class="input-bloqueado" readonly placeholder="...">
+        </div>
+        <div class="grupo-input">
+            <label>N° de Cuenta</label>
+            <input type="text" id="res-numero" class="input-bloqueado" readonly placeholder="...">
+        </div>
+        <div class="grupo-input">
+            <label>Correo Electrónico</label>
+            <input type="text" id="res-correo" class="input-bloqueado" readonly placeholder="...">
+        </div>
+        <div class="grupo-input">
+            <label>Asunto</label>
+            <input type="text" id="res-asunto" class="input-bloqueado" readonly placeholder="...">
+        </div>
+    </div>
+
+    <button id="btn-final" class="btn-transferir" onclick="alert('¡Simulación de transferencia exitosa!')">Confirmar Transferencia</button>
+</div>
+
+<script>
+    async function procesarToken() {
+        const tokenPegado = document.getElementById('token-input').value.trim();
+
+        if (!tokenPegado) {
+            alert("Por favor, pega el código primero.");
+            return;
+        }
+
+        try {
+            const respuesta = await fetch('https://api-easypago.onrender.com/api/v1/interpretar-token', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token: tokenPegado })
+            });
+
+            const datos_bancarios = await respuesta.json();
+
+            if (respuesta.ok) {
+                // AGREGAMOS LA ASIGNACIÓN DEL NOMBRE AQUÍ
+                document.getElementById('res-nombre').value = datos_bancarios.nombre;
+                
+                document.getElementById('res-rut').value = datos_bancarios.rut;
+                document.getElementById('res-banco').value = datos_bancarios.banco;
+                document.getElementById('res-tipo').value = datos_bancarios.tipoCuenta;
+                document.getElementById('res-numero').value = datos_bancarios.numeroCuenta;
+                document.getElementById('res-correo').value = datos_bancarios.correo;
+                document.getElementById('res-asunto').value = datos_bancarios.asunto;
+
+                document.getElementById('formulario-oculto').style.opacity = '1';
+                document.getElementById('btn-final').style.display = 'block';
+                
+            } else {
+                alert("Código inválido: " + datos_bancarios.detail);
+            }
+        } catch (error) {
+            alert("Error conectando con el servidor.");
+        }
+    }
+</script>
+
+</body>
+</html>
