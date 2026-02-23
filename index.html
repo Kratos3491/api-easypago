@@ -100,8 +100,8 @@
         const textoToken = document.getElementById('texto-token').innerText; 
         navigator.clipboard.writeText(textoToken).then(() => {
             const btn = document.getElementById('btnCopiar');
-            const textoOriginal = '📋 Copiar Token';
-            btn.innerHTML = '✅ ¡Copiado!';
+            const textoOriginal = ' Copiar Token';
+            btn.innerHTML = ' ¡Copiado!';
             setTimeout(() => {
                 btn.innerHTML = textoOriginal;
             }, 2000);
