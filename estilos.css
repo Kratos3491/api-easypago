@@ -1,0 +1,77 @@
+body { 
+    font-family: sans-serif; 
+    background-color: #f0f2f5; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
+    margin: 0; 
+    padding: 20px; 
+    box-sizing: border-box; 
+}
+
+.tarjeta { 
+    background-color: white; 
+    padding: 30px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+    width: 350px; 
+    text-align: center; 
+}
+
+input, select { 
+    width: 100%; 
+    padding: 10px; 
+    margin-bottom: 15px; 
+    border: 1px solid #ccc; 
+    border-radius: 6px; 
+    box-sizing: border-box; 
+}
+
+button { 
+    width: 100%; 
+    padding: 12px; 
+    background-color: #1a73e8; 
+    color: white; 
+    border: none; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    font-weight: bold; 
+}
+
+#caja-resultado { 
+    margin-top: 20px; 
+    display: none; 
+    background: #e8f0fe; 
+    padding: 15px; 
+    border-radius: 8px; 
+    border: 1px dashed #1a73e8; 
+}
+
+#imagen-qr { 
+    max-width: 150px; 
+    margin: 10px auto; 
+    border-radius: 8px; 
+    display: none; 
+}
+
+/* Estilos para los nuevos botones */
+.btn-copiar { 
+    margin-top: 10px; 
+    background-color: #28a745; 
+}
+
+.btn-pagar { 
+    margin-top: 10px; 
+    background-color: #6c757d; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    text-decoration: none; 
+    color: white; 
+    font-size: 14px; 
+}
+
+.btn-pagar:hover { 
+    background-color: #5a6268; 
+}

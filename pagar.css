@@ -1,0 +1,125 @@
+/* =========================================
+   BASE DE DISEÑO (Igual a index.html)
+   ========================================= */
+body { 
+    font-family: sans-serif; 
+    background-color: #f0f2f5; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
+    margin: 0; 
+    padding: 20px; 
+    box-sizing: border-box; 
+}
+
+.tarjeta { 
+    background-color: white; 
+    padding: 30px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+    width: 100%; 
+    max-width: 400px; /* Un poco más ancha que el index para acomodar el formulario */
+}
+
+h2 { 
+    text-align: center; 
+    color: #1a73e8; 
+    margin-top: 0; 
+}
+
+hr { 
+    border: 0; 
+    border-top: 1px solid #eee; 
+    margin: 20px 0; 
+}
+
+/* =========================================
+   ESTILOS ESPECÍFICOS DE LA VENTANA PAGAR
+   ========================================= */
+.instruccion { 
+    text-align: center; 
+    font-size: 14px; 
+    color: #666; 
+    margin-bottom: 20px;
+}
+
+.grupo-input { 
+    margin-bottom: 12px; 
+}
+
+label { 
+    display: block; 
+    font-weight: bold; 
+    margin-bottom: 5px; 
+    color: #555; 
+    font-size: 13px;
+}
+
+/* Input especial para pegar el token */
+.input-token { 
+    width: 100%; 
+    padding: 12px; 
+    border: 2px dashed #1a73e8; 
+    border-radius: 8px; 
+    box-sizing: border-box; 
+    font-size: 14px; 
+    text-align: center; 
+    background-color: #f8faff; 
+}
+
+/* Inputs de solo lectura */
+.input-bloqueado { 
+    width: 100%; 
+    padding: 10px; 
+    border: 1px solid #e0e0e0; 
+    border-radius: 6px; 
+    box-sizing: border-box; 
+    font-size: 14px; 
+    background-color: #f9f9f9; 
+    color: #333; 
+    cursor: not-allowed; 
+    font-weight: 500; 
+}
+
+/* Botones */
+.btn-magico { 
+    width: 100%; 
+    padding: 12px; 
+    background-color: #34a853; 
+    color: white; 
+    border: none; 
+    border-radius: 6px; 
+    font-size: 16px; 
+    font-weight: bold; 
+    cursor: pointer; 
+    margin-top: 10px; 
+    margin-bottom: 20px;
+}
+
+.btn-magico:hover {
+    background-color: #2b8b45;
+}
+
+.btn-transferir { 
+    width: 100%; 
+    padding: 14px; 
+    background-color: #1a73e8; 
+    color: white; 
+    border: none; 
+    border-radius: 6px; 
+    font-size: 16px; 
+    font-weight: bold; 
+    cursor: pointer; 
+    margin-top: 15px; 
+    display: none; 
+}
+
+.btn-transferir:hover {
+    background-color: #1557b0;
+}
+
+#formulario-oculto { 
+    opacity: 0.4; 
+    transition: opacity 0.5s; 
+}
