@@ -2,13 +2,14 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EasyPago - Generar Cobro</title>
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
 
 <div class="tarjeta">
-    <h2 style="color: #1a73e8; margin-top: 0;">Crear Cobro QR</h2>
+    <h2 style="color: #1a73e8; margin-top: 0; margin-bottom: 20px;">Crear Cobro QR</h2>
     
     <input type="text" id="nombre" placeholder="Nombre completo (Ej: Juan Pérez)">
     <input type="text" id="rut" placeholder="RUT (Ej: 19.876.543-2)">
@@ -30,15 +31,15 @@
     <button onclick="generar()">Generar QR y Token</button>
 
     <div id="caja-resultado">
-        <strong>¡Listo para cobrar!</strong>
-        <img id="imagen-qr" src="" alt="QR">
-        <p id="texto-token" style="word-break: break-all; font-family: monospace; font-size: 11px; background: white; padding: 5px; border-radius: 4px; border: 1px solid #ccc;"></p>
+        <strong style="display: block; font-size: 1.2rem; color: #333;">¡Listo para cobrar!</strong>
+        <img id="imagen-qr" src="" alt="QR" style="display: none;">
+        <p id="texto-token" style="word-break: break-all; font-family: monospace; font-size: 12px; background: #f8f9fa; padding: 10px; border-radius: 6px; border: 1px solid #ddd; margin: 15px 0;"></p>
         
         <button id="btnCopiar" class="btn-copiar" onclick="copiarAlPortapapeles()" style="display: none;">
           📋 Copiar Token
         </button>
 
-        <a href="pagar.html" id="btnIrAPagar" class="btn-pagar" style="display: none; height: 40px; border-radius: 6px; font-weight: bold; text-decoration: none;">
+        <a href="pagar.html" id="btnIrAPagar" class="btn-pagar" style="display: none; text-decoration: none;">
           💸 Ir a la Página de Pago
         </a>
     </div>
@@ -73,7 +74,6 @@
                 imgQr.src = resultado.qr_imagen;
                 imgQr.style.display = 'block';
 
-                // Mostrar ambos botones al tener éxito
                 document.getElementById('btnCopiar').style.display = 'block';
                 document.getElementById('btnIrAPagar').style.display = 'flex';
             } else {
@@ -88,8 +88,8 @@
         const textoToken = document.getElementById('texto-token').innerText; 
         navigator.clipboard.writeText(textoToken).then(() => {
             const btn = document.getElementById('btnCopiar');
-            const textoOriginal = ' Copiar Token';
-            btn.innerHTML = ' ¡Copiado!';
+            const textoOriginal = '📋 Copiar Token';
+            btn.innerHTML = '✅ ¡Copiado!';
             setTimeout(() => {
                 btn.innerHTML = textoOriginal;
             }, 2000);

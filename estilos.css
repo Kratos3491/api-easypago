@@ -15,7 +15,9 @@ body {
     padding: 30px; 
     border-radius: 12px; 
     box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
-    width: 350px; 
+    /* EL TRUCO RESPONSIVE AQUÍ */
+    width: 100%; /* Toma el ancho disponible del celular */
+    max-width: 380px; /* En PC no crecerá más de este tamaño */
     text-align: center; 
 }
 
@@ -26,6 +28,8 @@ input, select {
     border: 1px solid #ccc; 
     border-radius: 6px; 
     box-sizing: border-box; 
+    /* TRUCO PARA CELULARES: 16px evita que iOS haga zoom automático al escribir */
+    font-size: 16px; 
 }
 
 button { 
@@ -37,6 +41,7 @@ button {
     border-radius: 6px; 
     cursor: pointer; 
     font-weight: bold; 
+    font-size: 16px; /* Mejor tamaño para tocar con el dedo */
 }
 
 #caja-resultado { 
@@ -50,6 +55,7 @@ button {
 
 #imagen-qr { 
     max-width: 150px; 
+    width: 100%; /* El QR también debe ser adaptable */
     margin: 10px auto; 
     border-radius: 8px; 
     display: none; 
@@ -69,9 +75,18 @@ button {
     justify-content: center; 
     text-decoration: none; 
     color: white; 
-    font-size: 14px; 
+    font-size: 16px; 
+    padding: 12px; /* Añadido padding para que el botón de enlace sea igual de alto que los demás */
+    border-radius: 6px;
 }
 
 .btn-pagar:hover { 
     background-color: #5a6268; 
+}
+
+/* MEDIA QUERY: Reglas extra para celulares muy pequeños */
+@media (max-width: 380px) {
+    .tarjeta {
+        padding: 20px; /* Achicamos los bordes internos para ganar espacio en la pantalla */
+    }
 }

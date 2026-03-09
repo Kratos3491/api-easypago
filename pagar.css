@@ -1,125 +1,126 @@
-/* =========================================
-   BASE DE DISEÑO (Igual a index.html)
-   ========================================= */
-body { 
-    font-family: sans-serif; 
-    background-color: #f0f2f5; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    min-height: 100vh; 
-    margin: 0; 
-    padding: 20px; 
-    box-sizing: border-box; 
+/* Reset básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
-.tarjeta { 
-    background-color: white; 
-    padding: 30px; 
-    border-radius: 12px; 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
-    width: 100%; 
-    max-width: 400px; /* Un poco más ancha que el index para acomodar el formulario */
+body {
+    background-color: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
 }
 
-h2 { 
-    text-align: center; 
-    color: #1a73e8; 
-    margin-top: 0; 
+/* Tarjeta adaptable (100% en celular, max 450px en PC) */
+.tarjeta {
+    background: #ffffff;
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
 }
 
-hr { 
-    border: 0; 
-    border-top: 1px solid #eee; 
-    margin: 20px 0; 
+/* Grupos de inputs ordenados */
+.grupo-input {
+    text-align: left;
+    margin-bottom: 12px;
 }
 
-/* =========================================
-   ESTILOS ESPECÍFICOS DE LA VENTANA PAGAR
-   ========================================= */
-.instruccion { 
-    text-align: center; 
-    font-size: 14px; 
-    color: #666; 
-    margin-bottom: 20px;
-}
-
-.grupo-input { 
-    margin-bottom: 12px; 
-}
-
-label { 
-    display: block; 
-    font-weight: bold; 
-    margin-bottom: 5px; 
-    color: #555; 
+.grupo-input label {
+    display: block;
     font-size: 13px;
+    color: #64748b;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
-/* Input especial para pegar el token */
-.input-token { 
-    width: 100%; 
-    padding: 12px; 
-    border: 2px dashed #1a73e8; 
-    border-radius: 8px; 
-    box-sizing: border-box; 
-    font-size: 14px; 
-    text-align: center; 
-    background-color: #f8faff; 
+/* Campos de texto generales (16px para evitar auto-zoom en iPhone) */
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #334155;
+    background-color: #ffffff;
+    transition: border-color 0.2s;
 }
 
-/* Inputs de solo lectura */
-.input-bloqueado { 
-    width: 100%; 
-    padding: 10px; 
-    border: 1px solid #e0e0e0; 
-    border-radius: 6px; 
-    box-sizing: border-box; 
-    font-size: 14px; 
-    background-color: #f9f9f9; 
-    color: #333; 
-    cursor: not-allowed; 
-    font-weight: 500; 
+input:focus {
+    outline: none;
+    border-color: #10b981;
 }
 
-/* Botones */
-.btn-magico { 
-    width: 100%; 
-    padding: 12px; 
-    background-color: #34a853; 
-    color: white; 
-    border: none; 
-    border-radius: 6px; 
-    font-size: 16px; 
-    font-weight: bold; 
-    cursor: pointer; 
-    margin-top: 10px; 
-    margin-bottom: 20px;
+/* Estilo especial para el input del Token */
+.input-token {
+    text-align: center;
+    border: 2px dashed #1a73e8;
+    background-color: #f8fafc;
+    font-family: monospace;
+}
+
+/* Estilo para los inputs autocompletados (Solo lectura) */
+.input-bloqueado {
+    background-color: #f1f5f9;
+    color: #475569;
+    cursor: not-allowed;
+    border-color: #e2e8f0;
+}
+.input-bloqueado:focus {
+    border-color: #e2e8f0; /* Evita que brille al hacer clic */
+}
+
+/* Botones con tamaños amigables para los dedos */
+button {
+    width: 100%;
+    padding: 14px;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    margin-top: 10px;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.btn-magico {
+    background-color: #1a73e8;
 }
 
 .btn-magico:hover {
-    background-color: #2b8b45;
-}
-
-.btn-transferir { 
-    width: 100%; 
-    padding: 14px; 
-    background-color: #1a73e8; 
-    color: white; 
-    border: none; 
-    border-radius: 6px; 
-    font-size: 16px; 
-    font-weight: bold; 
-    cursor: pointer; 
-    margin-top: 15px; 
-    display: none; 
-}
-
-.btn-transferir:hover {
     background-color: #1557b0;
 }
 
-#formulario-oculto { 
-    opacity: 0.4; 
-    transition: opacity 0.5s; 
+.btn-transferir {
+    background-color: #10b981;
+    margin-top: 20px;
+}
+
+.btn-transferir:hover {
+    background-color: #059669;
+}
+
+/* Estado inicial del formulario autocompletado */
+#formulario-oculto {
+    opacity: 0.4;
+    pointer-events: none; /* Evita que hagan clic antes de pegar el token */
+    transition: opacity 0.4s ease-in-out;
+}
+
+/* Reglas extra para celulares pequeños */
+@media (max-width: 380px) {
+    .tarjeta {
+        padding: 20px;
+    }
 }

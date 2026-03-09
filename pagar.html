@@ -2,22 +2,23 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EasyPago - Nueva Transferencia</title>
     <link rel="stylesheet" href="pagar.css">
 </head>
 <body>
 
 <div class="tarjeta">
-    <h2>Hacer Transferencia</h2>
-    <p class="instruccion">Pega el código que te enviaron para autocompletar.</p>
+    <h2 style="color: #10b981; margin-top: 0;">Hacer Transferencia</h2>
+    <p class="instruccion" style="color: #64748b; margin-bottom: 20px;">Pega el código que te enviaron para autocompletar.</p>
     
     <div class="grupo-input">
         <input type="text" id="token-input" class="input-token" placeholder="Pegar código aquí...">
     </div>
     
-    <button class="btn-magico" onclick="procesarToken()"> Autocompletar Información Bancaria</button>
+    <button class="btn-magico" onclick="procesarToken()">✨ Autocompletar Información Bancaria</button>
 
-    <hr>
+    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 25px 0;">
 
     <div id="formulario-oculto">
         <div class="grupo-input">
@@ -51,7 +52,7 @@
         </div>
     </div>
 
-    <button id="btn-final" class="btn-transferir" onclick="alert('¡Simulación de transferencia exitosa!')">Confirmar Transferencia</button>
+    <button id="btn-final" class="btn-transferir" onclick="alert('¡Simulación de transferencia exitosa!')" style="display: none;">Confirmar Transferencia</button>
 </div>
 
 <script>
@@ -81,7 +82,9 @@
                 document.getElementById('res-correo').value = datos_bancarios.correo;
                 document.getElementById('res-asunto').value = datos_bancarios.asunto;
 
+                // Animación suave al revelar los datos
                 document.getElementById('formulario-oculto').style.opacity = '1';
+                document.getElementById('formulario-oculto').style.pointerEvents = 'auto';
                 document.getElementById('btn-final').style.display = 'block';
                 
             } else {
